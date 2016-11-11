@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AndroidBaseFramework</string>
+    <string name="loading">loading</string>
+    <string name="load_error_text">页面加载失败哟!</string>
+    <string name="load_no_wifi_text">网络现在不给力哟!</string>
+    <string name="to_detail">点击这里，查看详情： </string>
+
+
+
+</resources>
