@@ -3,7 +3,7 @@ package com.yiqirong.androidbaseframework.util_tools.encrypt;
 import android.util.Base64;
 import android.util.Log;
 
-import com.saipeisi.expressgold.utils.MathUtils;
+
 
 import java.io.ByteArrayOutputStream;
 import java.math.BigInteger;
