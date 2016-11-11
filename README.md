@@ -2,7 +2,7 @@
 
 -------------------------------框架总揽--------------------------------------------
 1、网络框架retrofit
-   retrofit的https虽然已经田间但是没有真实环境测试，待测试
+   retrofit的https虽然已经实现但是没有真实环境测试，待测试
    图片家在使用的是nostra13.universalimageloader:universal-image-loader
 2、使用了butterKnife替代findviewbyid和onlistener
 3、crush日志，暂时用uitl_tools下的crush exception做本地收集，在线收集有bugtags,阿里百川app监控
@@ -22,3 +22,7 @@
 
 
 -------------------------------网络框架--------------------------------------------
+
+
+
+
