@@ -2,7 +2,8 @@ package com.yiqirong.androidbaseframework.util_tools.image_tools;
 
 import android.graphics.Bitmap;
 
-import com.saipeisi.expressgold.MyApplication;
+
+import com.yiqirong.androidbaseframework.MainApplication;
 
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
@@ -92,10 +93,10 @@ public class MyImgCache {
             bitmap = imageCacheThumbnail.get(filePath).get();
         }
         if (bitmap == null) {
-            bitmap = MyImgTool.getImageThumbnail(MyApplication.getInstance(), filePath);
+            bitmap = MyImgTool.getImageThumbnail(MainApplication.getApplication(), filePath);
             putBitMapCacheThumbnail(filePath, bitmap);
         }
-        LogUtils.e("这里查到的bitmap是否为空" + (bitmap == null));
+
         //针对照相和没有及时生成缩略图的情况
         if (bitmap == null) {
             bitmap = getCacheBitMap(filePath);
