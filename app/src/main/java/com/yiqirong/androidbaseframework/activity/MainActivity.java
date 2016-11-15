@@ -8,6 +8,9 @@ import android.widget.Toast;
 
 import com.yiqirong.androidbaseframework.R;
 import com.yiqirong.androidbaseframework.net.RetrofitRest;
+import com.yiqirong.androidbaseframework.net.rest.ApiResponse;
+import com.yiqirong.androidbaseframework.net.rest.RestCallBack;
+import com.yiqirong.androidbaseframework.net.service.MyRequestBodyCreator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,15 +54,18 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.text_tv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RetrofitRest.apiManagerService.getWeather("test").enqueue(new Callback<Object>() {
+
+                RetrofitRest.apiManagerService.getWeather(MyRequestBodyCreator.create("{phone:138090909090}")).enqueue(new RestCallBack<ApiResponse>() {
+
                     @Override
-                    public void onResponse(Call<Object> call, Response<Object> response) {
-                        Toast.makeText(MainActivity.this,"success",Toast.LENGTH_LONG).show();
+                    public void onSuccess(String result) {
+                        Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
-                    public void onFailure(Call<Object> call, Throwable t) {
-                        Toast.makeText(MainActivity.this,"failed",Toast.LENGTH_LONG).show();
+                    public void onFailure(String msg) {
+                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+
                     }
                 });
             }
