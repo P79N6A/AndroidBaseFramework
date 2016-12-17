@@ -9,6 +9,15 @@
     </style>
 
 
+    <style name="text_main_tab">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/selector_tab_text</item>
+        <item name="android:textSize">@dimen/px_22</item>
+        <item name="android:gravity">center</item>
+    </style>
 
 
     <!-- 自定义仿IOS的ActionSheet底部Dialog的样式 ，有模糊效果 -->

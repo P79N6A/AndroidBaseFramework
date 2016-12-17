@@ -6,5 +6,6 @@
     <string name="to_detail">点击这里，查看详情： </string>
 
 
-
+    <string name="mine">我的</string>
+    <string name="main_page">主页</string>
 </resources>

@@ -94,7 +94,7 @@ public class HttpsUtils
         }
     }
 
-    private static TrustManager[] prepareTrustManager(InputStream... certificates)
+    private static TrustManager[] prepareTrustManager(InputStream[] certificates)
     {
         if (certificates == null || certificates.length <= 0) return null;
         try

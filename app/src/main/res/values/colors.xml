@@ -50,4 +50,6 @@
     <color name="actionsheet_blue">#037BFF</color>
     <color name="actionsheet_red">#FD4A2E</color>
     <color name="actionsheet_gray">#8F8F8F</color>
+    <color name="color_f84f21">#f84f21</color>
+    <color name="color_6f6f6f">#6f6f6f</color>
 </resources>

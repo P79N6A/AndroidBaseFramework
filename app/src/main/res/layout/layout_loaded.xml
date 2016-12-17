@@ -33,7 +33,7 @@
             android:visibility="gone" />
     </LinearLayout>
 
-    <com.saipeisi.expressgold.view.customview.CustomLoadingView
+    <com.yiqirong.androidbaseframework.widget.loadingview.RefreshPageFailedView
         android:id="@+id/customLoadingView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />

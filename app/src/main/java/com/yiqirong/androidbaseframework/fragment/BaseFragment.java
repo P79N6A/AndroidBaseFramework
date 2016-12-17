@@ -14,6 +14,8 @@ import com.yiqirong.androidbaseframework.R;
 import com.yiqirong.androidbaseframework.activity.BaseActivity;
 import com.yiqirong.androidbaseframework.widget.loadingview.CommitDataAnim;
 
+import butterknife.ButterKnife;
+
 
 /**
  * Created by wenjun on 2015/11/18.
@@ -47,15 +49,29 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return bindView(inflater, container, savedInstanceState);
-    }
 
+        if (view == null) {
+            view = inflater.inflate(setContentViewId(), container, false);
+            ButterKnife.bind(this, view);
+            isPrepared = true;
+            lazyLoad();
+            initViewData();
+            initListener();
+        }
+        ViewGroup parent = (ViewGroup) view.getParent();
+        if (parent != null) {
+            parent.removeView(view);
+        }
+        return view;
+    }
     /**
      * 绑定布局
      *
      * @return
      */
-    protected abstract View bindView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
+    protected abstract int setContentViewId();
+
+
 
     /**
      * 填充界面数据
@@ -160,4 +176,8 @@ public abstract class BaseFragment extends Fragment {
     }
 
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }

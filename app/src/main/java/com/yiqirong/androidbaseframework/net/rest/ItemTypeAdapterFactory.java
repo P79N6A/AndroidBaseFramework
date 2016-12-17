@@ -29,15 +29,27 @@ public class ItemTypeAdapterFactory implements TypeAdapterFactory {
             }
 
             public T read(JsonReader in) throws IOException {
-
                 JsonElement jsonElement = elementAdapter.read(in);
+//                LogUtils.w("这里返回了是关于婚姻");
                 if (jsonElement.isJsonObject()) {
                     JsonObject jsonObject = jsonElement.getAsJsonObject();
-                    if (jsonObject.has("cod") && jsonObject.get("cod").getAsInt() == 404) {
-                        throw new IllegalArgumentException(jsonObject.get("message").getAsString());
-                    }
-                }
+//                    LogUtils.e("返回数据是一个json数据" + jsonObject.toString());
+                    //当后台结果的result返回为null的时候，这个时候不能转为jsonobject就会当作服务器返回异常
+                    if (jsonObject.has("result") && jsonObject.get("result").toString().equalsIgnoreCase("null")) {
+                        jsonObject.remove("result");
+//                        LogUtils.e("返回数据，运行到这里" + jsonObject.toString());
+                        return delegate.fromJsonTree(elementAdapter.fromJson(jsonObject.toString()));
 
+                    }
+//                    else {
+//                        JsonElement jsonElement02 = elementAdapter.fromJson(jsonObject.toString());
+//                        if (jsonElement02.isJsonObject()) {
+//                            LogUtils.e("返回的数据是json格式");
+//                        } else {
+//                            LogUtils.e("返回的数据不是json格式");
+//                        }
+//                    }
+                }
                 return delegate.fromJsonTree(jsonElement);
             }
         }.nullSafe();

@@ -4,6 +4,7 @@ import android.app.Application;
 
 
 import com.yiqirong.androidbaseframework.net.RetrofitRest;
+import com.yiqirong.androidbaseframework.util_tools.image_tools.ImageLoaderUtils;
 
 
 /**
@@ -17,7 +18,7 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
         application = this;
-
+        ImageLoaderUtils.getInstance();
 
         new RetrofitRest();
 
