@@ -204,8 +204,13 @@ public class DataCleanManager {
     }
 
 
-    public static String getCacheSize(File file) throws Exception {
-        return getFormatSize(getFolderSize(file));
+    public static String getCacheSize(File file) {
+        try {
+            return getFormatSize(getFolderSize(file));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "0.0 M";
     }
 
 }

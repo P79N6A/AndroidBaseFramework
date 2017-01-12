@@ -1,20 +1,18 @@
 package com.yiqirong.androidbaseframework.util_tools;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Environment;
 import android.os.Process;
 
 import com.yiqirong.androidbaseframework.MainApplication;
 import com.yiqirong.androidbaseframework.R;
+import com.yiqirong.androidbaseframework.activity.MainActivity;
+import com.yiqirong.androidbaseframework.database.CrushInfo;
 
-import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.Thread.UncaughtExceptionHandler;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * 异常捕捉类，可以做测试或者用户使用时候的错误收集。
@@ -28,25 +26,30 @@ import java.util.Locale;
 public class CrushException implements UncaughtExceptionHandler {
     private final String NAME = Environment.getExternalStorageDirectory()
             .getPath() + "/" + MainApplication.getApplication().getResources().getString(R.string.app_name) + "/exception/";
+    //分割线
+    public static final String DIVIDE_LINE = "\n---divider_line---";
     private static CrushException crushException;
     private FileWriter fileWriter;
     private PrintWriter printWriter;
 
     private CrushException(Context context) {
-        File file = new File(NAME);
-        try {
-            if (!file.exists()) {
-                file.mkdirs();
-            }
-            file = new File(NAME, "log.txt");
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            fileWriter = new FileWriter(file, true);
-            printWriter = new PrintWriter(fileWriter);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        /**
+         //古老的方式，存放本地的方式现在改为数据库存储
+         File file = new File(NAME);
+         try {
+         if (!file.exists()) {
+         file.mkdirs();
+         }
+         file = new File(NAME, "log.txt");
+         if (!file.exists()) {
+         file.createNewFile();
+         }
+         fileWriter = new FileWriter(file, true);
+         printWriter = new PrintWriter(fileWriter);
+         } catch (IOException e) {
+         e.printStackTrace();
+         }
+         **/
     }
 
     public void init(Context context) {
@@ -62,14 +65,46 @@ public class CrushException implements UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd  hh:mm:ss",
-                Locale.CHINA);
-        printWriter.write("______" + format.format(date) + "______\n");
-        ex.printStackTrace(printWriter);
-        printWriter.flush();
-        ex.printStackTrace();
-        Process.killProcess(Process.myPid());
+        /** //        古老的方式，存放本地的方式
+         Date date = new Date();
+         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd  hh:mm:ss",
+         Locale.CHINA);
+         printWriter.write("______" + format.format(date) + "______\n");
+         ex.printStackTrace(printWriter);
+         printWriter.flush();
+         ex.printStackTrace();
+         Process.killProcess(Process.myPid());
+         **/
+
+        try {
+            CrushInfo info = new CrushInfo();
+            info.setTitle(ex.toString());
+            StringBuilder content = new StringBuilder();
+            content.append(ex.getCause());
+            StackTraceElement[] stacktrace = ex.getStackTrace();
+            //异常类型+发生位置作为标题
+            info.setTitle(ex.toString()  );
+            for (int i = 0; i < stacktrace.length; i++) {
+
+                content.append("\t at " + stacktrace[i].toString() + "\n");
+            }
+            info.setContent(content.toString());
+            MainApplication.getApplication().getDaoSession().getCrushInfoDao().insert(info);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Process.killProcess(Process.myPid());
+            Intent intent = new Intent( MainApplication.getApplication(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            MainApplication.getApplication().startActivity(intent);
+
+
+
+        }
+
     }
+
 
 }

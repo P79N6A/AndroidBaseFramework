@@ -54,7 +54,7 @@ public abstract class BaseFragment extends Fragment {
             view = inflater.inflate(setContentViewId(), container, false);
             ButterKnife.bind(this, view);
             isPrepared = true;
-            lazyLoad();
+
             initViewData();
             initListener();
         }

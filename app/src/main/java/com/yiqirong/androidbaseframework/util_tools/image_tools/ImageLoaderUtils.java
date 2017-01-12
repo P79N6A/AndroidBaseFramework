@@ -43,6 +43,9 @@ public class ImageLoaderUtils {
     public ImageLoaderUtils(Context context) {
         mImageLoader = ImageLoader.getInstance();
         File cacheDir = new File(IConstants.ImageCachePath);
+        if(!cacheDir.exists()){
+            cacheDir.mkdirs();
+        }
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
                 .threadPriority(Thread.NORM_PRIORITY - 2)
                 .denyCacheImageMultipleSizesInMemory()

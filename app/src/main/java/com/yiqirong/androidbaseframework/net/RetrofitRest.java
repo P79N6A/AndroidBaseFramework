@@ -11,12 +11,13 @@ import com.yiqirong.androidbaseframework.net.service.APIManagerService;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.concurrent.TimeUnit;
+ import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
 import okhttp3.OkHttpClient;
+import okio.Buffer;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -25,9 +26,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RetrofitRest {
-//    public static final String BASE_URL = "https://kms.dev.cn/";
-            public static final String BASE_URL = "http://kms.dev.cn/";
-//        public static final String BASE_URL = "http://18.18.19.91:8080/";
+    //    public static final String BASE_URL = "https://kms.dev.cn/";
+    public static final String BASE_URL = "http://kms.dev.cn/";
+    //        public static final String BASE_URL = "http://18.18.19.91:8080/";
 //    public static final String BASE_URL = "https://kyfw.12306.cn/";
     public static APIManagerService apiManagerService;
     private static Retrofit retrofit;
@@ -55,20 +56,36 @@ public class RetrofitRest {
 
     /**
      * 初始化证书和client
+     *
      * @return
      */
     private static OkHttpClient initClient() {
         InputStream[] streams = new InputStream[1];
         try {
             //12306的证书
-//            streams[0] = MainApplication.getInstance().getAssets().open("srca.cer");
-            streams[0] = MainApplication.getApplication().getAssets().open("dev.cn.crt");
+//            streams[0] = MainApplication.getApplication().getAssets().open("srca.cer");
+            streams[0] = MainApplication.getApplication().getAssets().open("zhy_server.cer");
 
-        } catch (IOException e) {
+//快递金证书的明文
+//            String CER_EXPRESS_GOLD = "-----BEGIN CERTIFICATE REQUEST-----\n" +
+//                    "MIIBrjCCARcCAQAwbjELMAkGA1UEBhMCVVMxDTALBgNVBAgMBE1hcnMxEzARBgNV\n" +
+//                    "BAcMCmlUcmFuc3dhcnAxEzARBgNVBAoMCmlUcmFuc3dhcnAxEzARBgNVBAsMCmlU\n" +
+//                    "cmFuc3dhcnAxETAPBgNVBAMMCCouZGV2LmNuMIGfMA0GCSqGSIb3DQEBAQUAA4GN\n" +
+//                    "ADCBiQKBgQDNNr8BDAY2hU7XQBvmT0HOX3AkbWk6U1Qbw942sKH+vn9IdGBaM2jd\n" +
+//                    "oaGZd1VEHhcxMuForb6GA1vvS+/zv78mn4nDMt/HvBZmAZV2gSyxmw631zYkQcpv\n" +
+//                    "xNkUhBWI0yu/UBofp0pEUiKgakPYxBS6Fv+HLJ8PxlsysWTj6oLJ8wIDAQABoAAw\n" +
+//                    "DQYJKoZIhvcNAQELBQADgYEAOdbQLwh1FPLIOtii6eIWKynaRvzN7HD+t1A1/ixG\n" +
+//                    "JgkXUdbpWalwwHZqGwHcokMNsiq8KREU3h44p4Wz4htPQ16N+a0Z9qu6a02kJ8mJ\n" +
+//                    "JHYiYc5gEXnOl6UNlG4k8d7EH7NLS0Z/+3uBg3qvfReIqZCZ0D9TeZXt7wWNv9ql\n" +
+//                    "pfk=\n" +
+//                    "-----END CERTIFICATE REQUEST-----\n";
+//            streams[0] = new Buffer().writeUtf8(CER_EXPRESS_GOLD).inputStream();
+
+         } catch (Exception e) {
             e.printStackTrace();
         }
 
-
+        //
         HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(streams, null, null);
 
         CookieJarImpl cookieJar1 = new CookieJarImpl(new MemoryCookieStore());
@@ -96,7 +113,6 @@ public class RetrofitRest {
 
         return okHttpClient;
     }
-
 
 
 }

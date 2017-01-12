@@ -15,8 +15,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.yiqirong.androidbaseframework.widget.loadingview.CommitDataAnim;
+
+import com.yiqirong.androidbaseframework.MainApplication;
 import com.yiqirong.androidbaseframework.R;
+import com.yiqirong.androidbaseframework.widget.loadingview.CommitDataAnim;
 
 
 /**
@@ -42,7 +44,7 @@ public abstract class BaseActivity extends FragmentActivity {
     protected TextView titlebar_right_tv;
     protected Context mContext;
     protected BaseActivity mAct;
-
+    protected MainApplication application;
 
     protected CommitDataAnim mProgressDialog;
     private boolean mIsProgressDialogShow = false;
@@ -55,6 +57,7 @@ public abstract class BaseActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         mContext = getApplicationContext();
+        application= (MainApplication) getApplicationContext();
         mAct = this;
         titleBar = (FrameLayout) findViewById(R.id.activity_base_titlebar);
         content = (FrameLayout) findViewById(R.id.activity_base_content);
@@ -293,7 +296,6 @@ public abstract class BaseActivity extends FragmentActivity {
             mIsProgressDialogShow = false;
         }
     }
-
 
 
 }

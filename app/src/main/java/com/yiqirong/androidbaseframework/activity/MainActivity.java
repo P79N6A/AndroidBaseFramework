@@ -5,16 +5,15 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.yiqirong.androidbaseframework.R;
 import com.yiqirong.androidbaseframework.adapter.MainFragmentAdapter;
+import com.yiqirong.androidbaseframework.database.CrushInfo;
+import com.yiqirong.androidbaseframework.fragment.IndicateFragment;
 import com.yiqirong.androidbaseframework.fragment.MainFragment;
-import com.yiqirong.androidbaseframework.fragment.MineFragment;
-import com.yiqirong.androidbaseframework.net.RetrofitRest;
-import com.yiqirong.androidbaseframework.net.rest.ApiResponse;
-import com.yiqirong.androidbaseframework.net.rest.RestCallBack;
-import com.yiqirong.androidbaseframework.net.service.MyRequestBodyCreator;
+import com.yiqirong.androidbaseframework.fragment.RecyclerViewFragment;
+import com.yiqirong.androidbaseframework.fragment.RefreshFragment;
+import com.yiqirong.androidbaseframework.util_tools.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,6 @@ import butterknife.OnClick;
  * Created by kangwencai on 2016/11/10.
  */
 public class MainActivity extends BaseActivity {
-
 
 
     @BindView(R.id.vp_main)
@@ -54,7 +52,6 @@ public class MainActivity extends BaseActivity {
     TextView tvTabMenu4;
 
 
-
     private int mCurrentTab = 0;
     private List<View> mTabViews = new ArrayList<>();
     private List<View> mTabTexts = new ArrayList<>();
@@ -75,15 +72,20 @@ public class MainActivity extends BaseActivity {
     public void initData() {
 
         mList.add(new MainFragment());
-        mList.add(new MineFragment());
-        mList.add(new MineFragment());
-        mList.add(new MineFragment());
-        mList.add(new MineFragment());
+        mList.add(new RefreshFragment());
+        mList.add(new IndicateFragment());
+        mList.add(new RefreshFragment());
+        mList.add(new RecyclerViewFragment());
 
         mAdapter = new MainFragmentAdapter(getSupportFragmentManager());
         mAdapter.setDataList(mList);
         vpMain.setAdapter(mAdapter);
         vpMain.addOnPageChangeListener(mPageChangeListener);
+
+        //TODO:挖一个让程序崩溃的坑，然后重新启动，这样可以看看异常捕捉和数据库存储是否生效，到底有多少坑呢？大家一起来找茬吧
+        List<CrushInfo> infoList = application.getDaoSession().getCrushInfoDao().loadAll();
+        LogUtils.e(infoList.get(0).toString());
+
     }
 
     @Override

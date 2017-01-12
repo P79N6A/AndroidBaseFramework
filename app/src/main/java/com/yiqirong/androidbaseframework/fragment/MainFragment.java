@@ -5,10 +5,9 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.yiqirong.androidbaseframework.R;
-import com.yiqirong.androidbaseframework.adapter.NetImageHolderView;
+import com.yiqirong.androidbaseframework.widget.bannerHeaders.NetImageHolderView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -20,7 +19,7 @@ public class MainFragment extends BaseFragment {
     @BindView(R.id.convenientBanner)
     ConvenientBanner convenientBanner;
     private ArrayList<String> networkImages = new ArrayList<String>();
-     
+
     private String[] images = {"http://img2.imgtn.bdimg.com/it/u=3093785514,1341050958&fm=21&gp=0.jpg",
             "http://img2.3lian.com/2014/f2/37/d/40.jpg",
             "http://d.3987.com/sqmy_131219/001.jpg",
@@ -43,7 +42,7 @@ public class MainFragment extends BaseFragment {
     protected void initViewData() {
 
 
-        for(String str:images){
+        for (String str : images) {
             networkImages.add(str);
         }
 
@@ -65,7 +64,9 @@ public class MainFragment extends BaseFragment {
                     public void onItemClick(int position) {
 
                     }
-                });
+                }).startTurning(2000);
+// 设置切换模式，具体可以进包里面查看各种动画
+// convenientBanner.getViewPager().setPageTransformer(true,new DefaultTransformer());
 
     }
 

@@ -94,11 +94,15 @@ public class HttpsUtils
         }
     }
 
+    /**
+     * x509证书
+     * @param certificates
+     * @return
+     */
     private static TrustManager[] prepareTrustManager(InputStream[] certificates)
     {
         if (certificates == null || certificates.length <= 0) return null;
-        try
-        {
+        try{
 
             CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
             KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
@@ -119,8 +123,7 @@ public class HttpsUtils
             }
             TrustManagerFactory trustManagerFactory = null;
 
-            trustManagerFactory = TrustManagerFactory.
-                    getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
             trustManagerFactory.init(keyStore);
 
             TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
