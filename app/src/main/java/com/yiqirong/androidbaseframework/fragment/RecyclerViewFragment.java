@@ -1,8 +1,10 @@
 package com.yiqirong.androidbaseframework.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.yiqirong.androidbaseframework.R;
 import com.yiqirong.androidbaseframework.adapter.MyAdapter;
+import com.yiqirong.androidbaseframework.util_tools.LogUtils;
 
 import java.util.ArrayList;
 
@@ -114,11 +117,7 @@ public class RecyclerViewFragment extends BaseFragment {
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
+
+
+
 }

@@ -13,6 +13,8 @@ import com.yiqirong.androidbaseframework.fragment.IndicateFragment;
 import com.yiqirong.androidbaseframework.fragment.MainFragment;
 import com.yiqirong.androidbaseframework.fragment.RecyclerViewFragment;
 import com.yiqirong.androidbaseframework.fragment.RefreshFragment;
+import com.yiqirong.androidbaseframework.fragment.TestAFragment;
+import com.yiqirong.androidbaseframework.fragment.TestBFragment;
 import com.yiqirong.androidbaseframework.util_tools.LogUtils;
 
 import java.util.ArrayList;
@@ -74,14 +76,14 @@ public class MainActivity extends BaseActivity {
         mList.add(new MainFragment());
         mList.add(new RefreshFragment());
         mList.add(new IndicateFragment());
-        mList.add(new RefreshFragment());
-        mList.add(new RecyclerViewFragment());
+        mList.add(new TestAFragment());
+        mList.add(new TestBFragment());
 
         mAdapter = new MainFragmentAdapter(getSupportFragmentManager());
         mAdapter.setDataList(mList);
         vpMain.setAdapter(mAdapter);
         vpMain.addOnPageChangeListener(mPageChangeListener);
-
+        vpMain.setOffscreenPageLimit(5);
         //TODO:挖一个让程序崩溃的坑，然后重新启动，这样可以看看异常捕捉和数据库存储是否生效，到底有多少坑呢？大家一起来找茬吧
         List<CrushInfo> infoList = application.getDaoSession().getCrushInfoDao().loadAll();
         LogUtils.e(infoList.get(0).toString());

@@ -1,7 +1,9 @@
 package com.yiqirong.androidbaseframework.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 
 import com.yiqirong.androidbaseframework.R;
 import com.yiqirong.androidbaseframework.util_tools.DisplayUtil;
+import com.yiqirong.androidbaseframework.util_tools.LogUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,12 +67,4 @@ public class RefreshFragment extends BaseFragment {
 
     }
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
 }
